@@ -91,7 +91,7 @@ For the given requirement:
    - Frontend: Pages, components, hooks/composables, stores
    - Backend: Controllers, services, repositories, entities
 
-### 4. Generate Architecture Overview
+### 5. Generate Architecture Overview
 
 Write the output to a markdown file in the current working directory:
 - Filename: `architecture-[feature-name-kebab-case].md`
@@ -125,17 +125,61 @@ sequenceDiagram
     FE-->>U: [UI update]
 ​```
 
-### Frontend Components
-| Component | Path | Purpose |
-|-----------|------|---------|
-| [Page] | `src/pages/...` | Entry point |
-| [Component] | `src/components/...` | UI element |
+---
 
-### Backend Components
+### Backend Implementation
+
+#### Existing Components (Reuse)
 | Component | Path | Purpose |
 |-----------|------|---------|
-| [Handler] | `src/handlers/...` | Request handler |
-| [Service] | `src/services/...` | Business logic |
+| [Service] | `src/services/...` | Can be reused for X |
+
+#### NEW Components Required
+| Component | Path | Purpose | Priority |
+|-----------|------|---------|----------|
+| [Endpoint] | `src/routes/...` | Handle API request | High |
+| [DTO] | `src/dtos/...` | Request/response types | High |
+| [Service] | `src/services/...` | Business logic | High |
+| [Repository] | `src/repositories/...` | Data access | Medium |
+
+---
+
+### Frontend Implementation
+
+#### Existing Components (Reuse)
+| Component | Path | Purpose |
+|-----------|------|---------|
+| [Component] | `src/components/...` | Can be reused for X |
+
+#### NEW Components Required
+| Component | Path | Purpose | Priority |
+|-----------|------|---------|----------|
+| [Page] | `src/pages/...` | Entry point | High |
+| [Hook] | `src/hooks/...` | API integration | High |
+| [Component] | `src/components/...` | UI element | Medium |
+
+---
+
+### Integration Contract
+
+#### API Endpoint
+- **URL**: `[METHOD] /api/v1/resource`
+- **Auth**: Required / Public
+- **Request Body**:
+  ```json
+  {
+    "field": "type"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "data": {}
+  }
+  ```
+- **Error Codes**: 400 (validation), 401 (unauthorized), 404 (not found)
+
+---
 
 ### Data Flow
 1. User triggers [action] in [component]
@@ -149,7 +193,7 @@ sequenceDiagram
 - [Dependencies between components]
 ```
 
-### 5. Route-Based Component Discovery
+### 6. Route-Based Component Discovery
 
 When requirement mentions a route (e.g., `/users/profile`):
 
