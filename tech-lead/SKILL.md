@@ -41,7 +41,41 @@ If paths not provided, scan current directory for `package.json`, `go.mod`, `req
 
 See `references/backend-patterns.md` and `references/frontend-patterns.md` for detection details.
 
-### 3. Trace Feature Flow
+### 3. Gap Analysis (Critical Step)
+
+For the given requirement, perform a thorough gap analysis:
+
+#### 3.1 Identify What EXISTS
+Search the codebase for related components:
+- **Backend**: Existing endpoints, services, entities, repositories
+- **Frontend**: Existing pages, components, hooks, stores
+
+#### 3.2 Identify What's MISSING on Backend
+Check for gaps - the backend often needs NEW:
+- **Endpoints/Resolvers**: Does the API endpoint exist? Search routes/controllers
+- **DTOs/Types**: Are request/response types defined?
+- **Services**: Is business logic layer present?
+- **Entities/Aggregates**: Do domain models exist?
+- **Repositories**: Is data access layer ready?
+- **Commands/Queries** (CQRS): Are handlers defined?
+- **Validation**: Are validators in place?
+
+#### 3.3 Identify What's MISSING on Frontend
+Check for gaps:
+- **Pages/Views**: Does the route component exist?
+- **UI Components**: Are required components available?
+- **API Integration**: Do API hooks/services exist?
+- **State Management**: Is store/slice needed?
+- **Forms**: Are form handlers ready?
+
+#### 3.4 Integration Requirements
+Define what connects frontend to backend:
+- **API Contract**: Endpoint URL, method, request/response shape
+- **Authentication**: Token handling, permissions
+- **Error Handling**: Error codes and UI responses
+- **Real-time**: WebSocket/SSE requirements if any
+
+### 4. Trace Feature Flow
 
 For the given requirement:
 
