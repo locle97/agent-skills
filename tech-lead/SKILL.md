@@ -59,6 +59,10 @@ For the given requirement:
 
 ### 4. Generate Architecture Overview
 
+Write the output to a markdown file in the current working directory:
+- Filename: `architecture-[feature-name-kebab-case].md`
+- Example: `architecture-user-authentication.md`
+
 Output format:
 
 ```markdown
@@ -143,6 +147,7 @@ grep -r "userProfile\|user.*profile" --include="*.graphql"
 
 ## Output Guidelines
 
+- **Write output to markdown file** - Always save the architecture overview to `architecture-[feature-name].md`
 - Keep guidance **high-level** - team members investigate details
 - Focus on **what** components are involved, not **how** to code them
 - Use Mermaid diagrams to visualize flow
