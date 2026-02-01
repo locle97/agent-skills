@@ -226,6 +226,9 @@ grep -r "userProfile\|user.*profile" --include="*.graphql"
 ## Output Guidelines
 
 - **Write output to markdown file** - Always save the architecture overview to `architecture-[feature-name].md`
+- **Clearly separate EXISTING vs NEW** - This is critical for planning work
+- **Always identify backend gaps** - Don't assume backend is ready; check for missing endpoints, services, entities
+- **Define integration contract** - Specify exact API shape so frontend and backend can work in parallel
 - Keep guidance **high-level** - team members investigate details
 - Focus on **what** components are involved, not **how** to code them
 - Use Mermaid diagrams to visualize flow
