@@ -41,39 +41,14 @@ If paths not provided, scan current directory for `package.json`, `go.mod`, `req
 
 See `references/backend-patterns.md` and `references/frontend-patterns.md` for detection details.
 
-### 3. Gap Analysis (Critical Step)
+### 3. Gap Analysis
 
-For the given requirement, perform a thorough gap analysis:
+For the given requirement, identify:
 
-#### 3.1 Identify What EXISTS
-Search the codebase for related components:
-- **Backend**: Existing endpoints, services, entities, repositories
-- **Frontend**: Existing pages, components, hooks, stores
-
-#### 3.2 Identify What's MISSING on Backend
-Check for gaps - the backend often needs NEW:
-- **Endpoints/Resolvers**: Does the API endpoint exist? Search routes/controllers
-- **DTOs/Types**: Are request/response types defined?
-- **Services**: Is business logic layer present?
-- **Entities/Aggregates**: Do domain models exist?
-- **Repositories**: Is data access layer ready?
-- **Commands/Queries** (CQRS): Are handlers defined?
-- **Validation**: Are validators in place?
-
-#### 3.3 Identify What's MISSING on Frontend
-Check for gaps:
-- **Pages/Views**: Does the route component exist?
-- **UI Components**: Are required components available?
-- **API Integration**: Do API hooks/services exist?
-- **State Management**: Is store/slice needed?
-- **Forms**: Are form handlers ready?
-
-#### 3.4 Integration Requirements
-Define what connects frontend to backend:
-- **API Contract**: Endpoint URL, method, request/response shape
-- **Authentication**: Token handling, permissions
-- **Error Handling**: Error codes and UI responses
-- **Real-time**: WebSocket/SSE requirements if any
+1. **What EXISTS** - Search for related components in both codebases
+2. **What's NEW on Backend** - Missing endpoints, services, entities
+3. **What's NEW on Frontend** - Missing pages, components, hooks
+4. **Integration Points** - How frontend and backend connect
 
 ### 4. Trace Feature Flow
 
@@ -127,57 +102,36 @@ sequenceDiagram
 
 ---
 
-### Backend Implementation
+### Backend Changes
 
-#### Existing Components (Reuse)
-| Component | Path | Purpose |
-|-----------|------|---------|
-| [Service] | `src/services/...` | Can be reused for X |
+**Existing (Reuse)**:
+- [List existing services, entities, or patterns that can be leveraged]
 
-#### NEW Components Required
-| Component | Path | Purpose | Priority |
-|-----------|------|---------|----------|
-| [Endpoint] | `src/routes/...` | Handle API request | High |
-| [DTO] | `src/dtos/...` | Request/response types | High |
-| [Service] | `src/services/...` | Business logic | High |
-| [Repository] | `src/repositories/...` | Data access | Medium |
+**New Required**:
+- [ ] Endpoint/Resolver: [Brief description of API needed]
+- [ ] Service: [Business logic needed]
+- [ ] Entity/Model: [Data model changes if any]
+- [ ] Other: [Validation, events, etc.]
 
 ---
 
-### Frontend Implementation
+### Frontend Changes
 
-#### Existing Components (Reuse)
-| Component | Path | Purpose |
-|-----------|------|---------|
-| [Component] | `src/components/...` | Can be reused for X |
+**Existing (Reuse)**:
+- [List existing components, hooks, or patterns that can be leveraged]
 
-#### NEW Components Required
-| Component | Path | Purpose | Priority |
-|-----------|------|---------|----------|
-| [Page] | `src/pages/...` | Entry point | High |
-| [Hook] | `src/hooks/...` | API integration | High |
-| [Component] | `src/components/...` | UI element | Medium |
+**New Required**:
+- [ ] Page/Route: [Where the feature lives]
+- [ ] Components: [UI elements needed]
+- [ ] State/API: [Data fetching or state management]
 
 ---
 
-### Integration Contract
+### Integration Points
 
-#### API Endpoint
-- **URL**: `[METHOD] /api/v1/resource`
+- **Endpoint**: `[METHOD] /api/path` - [Brief purpose]
 - **Auth**: Required / Public
-- **Request Body**:
-  ```json
-  {
-    "field": "type"
-  }
-  ```
-- **Response**:
-  ```json
-  {
-    "data": {}
-  }
-  ```
-- **Error Codes**: 400 (validation), 401 (unauthorized), 404 (not found)
+- **Key Data**: [Main fields exchanged between FE/BE]
 
 ---
 
@@ -225,13 +179,10 @@ grep -r "userProfile\|user.*profile" --include="*.graphql"
 
 ## Output Guidelines
 
-- **Write output to markdown file** - Always save the architecture overview to `architecture-[feature-name].md`
-- **Clearly separate EXISTING vs NEW** - This is critical for planning work
-- **Always identify backend gaps** - Don't assume backend is ready; check for missing endpoints, services, entities
-- **Define integration contract** - Specify exact API shape so frontend and backend can work in parallel
-- Keep guidance **high-level** - team members investigate details
-- Focus on **what** components are involved, not **how** to code them
+- **Write output to markdown file** - Save to `architecture-[feature-name].md`
+- **Keep it HIGH-LEVEL** - Team members decide implementation details
+- **Separate EXISTING vs NEW** - So team knows what to build
+- **Identify backend gaps** - Don't assume backend is ready
+- **Focus on WHAT, not HOW** - Architecture direction, not code
 - Use Mermaid diagrams to visualize flow
-- List files/paths so team can navigate directly
-- Highlight integration points between frontend and backend
 - Note architectural patterns being used (DDD, CQRS, etc.)
